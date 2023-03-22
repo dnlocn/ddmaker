@@ -49,28 +49,53 @@ function fillTextArea(f) {
 
 
 function showPreview(txtAreaSentence) {
-   
+
     //var txtAreaSentence = document.getElementById('txtLatexSentencesArea').value;
     var divPreview = document.getElementById('divResultEqs');
     // divPreview.innerHTML = "";
     var divPreviewImgs = document.getElementById('divResultImgEqs');
+    // console.log(txtAreaSentence.indexOf("@") !== 1);
 
-    let txtAreaSplit = txtAreaSentence.split('@');
+    if (txtAreaSentence.search("@") !== true) {
 
-    var div = document.createElement('div');
-    console.log('txtAreaSplit',txtAreaSplit);
+        let txtAreaSplit = txtAreaSentence.split('@');
 
-    for (let i = 0; i < txtAreaSplit.length; i++) {
-        div.id = "previewEqs" + i;
-        div.innerHTML = katex.renderToString(txtAreaSplit[i]);
-        divPreview.appendChild(div);
+        for (let i = 0; i < txtAreaSplit.length; i++) {
+            divPreview.innerHTML += '<br>' + katex.renderToString(txtAreaSplit[i]);
+            //divPreview.appendChild(div);
+        }
+    } else {
+        divPreview.innerHTML = ''
     }
+
+
 }
 
 
 
 
 function exportEquations(divResultEqs) {
+
+    //   //var txtAreaSentence = document.getElementById('txtLatexSentencesArea').value;
+    //   var divPreview = document.getElementById('divResultEqs');
+    //   // divPreview.innerHTML = "";
+    //   var divPreviewImgs = document.getElementById('divResultImgEqs');
+
+    //   let txtAreaSplit = txtAreaSentence.split('@');
+
+    //   var div = document.createElement('div');
+    //   console.log('txtAreaSplit',txtAreaSplit);
+
+    //   for (let i = 0; i < txtAreaSplit.length; i++) {
+    //       div.id = "previewEqs" + i;
+    //       div.innerHTML = katex.renderToString(txtAreaSplit[i]);
+    //       divPreview.appendChild(div);
+    //   }
+
+
+
+
+
 
     domtoimage.toPng(divResultEqs).then(function (dataUrl) {
         var img = new Image();
